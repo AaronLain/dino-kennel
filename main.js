@@ -65,6 +65,7 @@ const closeSingleViewEvent = () => {
 
 const singleDinoAddEvents = () => {
     const dinoViewButtons = document.getElementsByClassName('single-dino');
+    
     for (i = 0; i < dinoViewButtons.length; i++) {
         dinoViewButtons[i].addEventListener('click', viewSingleDino);
     }
@@ -72,6 +73,7 @@ const singleDinoAddEvents = () => {
 
 const petEvents = () => {
     const dinoPetButtons = document.getElementsByClassName('dino-photo');
+    
     for (i = 0; i < dinoPetButtons.length; i++) {
         dinoPetButtons[i].addEventListener('mouseenter', dinoHealth);
     }

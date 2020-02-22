@@ -108,10 +108,13 @@ const feedMe = (e) => {
     const dinoId = e.target.closest('.card').id;
     const dinoPosition = dinos.findIndex((dino) => dino.id === dinoId);
     
-    if (dinos[dinoPosition].health < 100) {
+    if (dinos[dinoPosition].health < 90) {
         dinos[dinoPosition].health += 10;
         printDinos(dinos);
-    };
+    } else if (dinos[dinoPosition].health > 89 && dinos[dinoPosition].health < 100) {
+        dinos[dinoPosition].health = 100;
+        printDinos(dinos);
+    }
 }
 
 const feedEvents = () => {

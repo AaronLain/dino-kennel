@@ -7,27 +7,27 @@ const dinos = [ {
     adventures: [],
     health: 100,
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61fC04pumjL._AC_SL1001_.jpg'
-  },
-  {
+    },
+    {
     id: 'dino2',
     name: 'Steve',
     type: 'Velociraptor',
     age: 1,
     owner: 'Mary',
     adventures: [],
-    health: 100,
+    health: 1,
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61fC04pumjL._AC_SL1001_.jpg'
-  },
-  {
+    },
+    {
     id: 'dino3',
     name: 'Susan',
     type: 'Stegasaurus',
     age: 55,
     owner: 'Luke',
     adventures: [],
-    health: 100,
+    health: 45,
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61fC04pumjL._AC_SL1001_.jpg'
-  }];
+    } ];
 
 const printToDom = (divId, textToPrint) => {
     const selectedDiv = document.getElementById(divId);
@@ -42,7 +42,7 @@ const viewSingleDino = (e) => {
     domString += `<div class="container">`
     domString +=     `<div class="row">`
     domString +=         `<div class="col-6">`
-    domString +=             `<img class="img-fluid"src="${selectedDino.imageUrl}" alt=""/>`
+    domString +=             `<img class="img-fluid"src="${selectedDino.imageUrl}" alt="${selectedDino.name}"/>`
     domString +=         `</div>`
     domString +=         `<div class="col-6" style="background-color: #f7f7f7">`
     domString +=             `<h2>${selectedDino.name}</h2>`
@@ -61,13 +61,30 @@ const viewSingleDino = (e) => {
 const closeSingleViewEvent = () => {
     printToDom('single-view', '');
     printDinos(dinos);
-}
+};
 
 const singleDinoAddEvents = () => {
     const dinoViewButtons = document.getElementsByClassName('single-dino');
     for (i = 0; i < dinoViewButtons.length; i++) {
         dinoViewButtons[i].addEventListener('click', viewSingleDino);
     }
+};
+
+const petEvents = () => {
+    const dinoPetButtons = document.getElementsByClassName('dino-photo');
+    for (i = 0; i < dinoPetButtons.length; i++) {
+        dinoPetButtons[i].addEventListener('mouseenter', dinoHealth);
+    }
+};
+
+const dinoHealth = (e) => {
+    const dinoId = e.target.closest('.card').id;
+    const dinoPosition = dinos.findIndex((dino) => dino.id === dinoId);
+    
+    if (dinos[dinoPosition].health < 100) {
+        dinos[dinoPosition].health += 1;
+        printDinos(dinos);
+    };
 }
 
 const printDinos = (dinoArray) => {
@@ -75,10 +92,10 @@ const printDinos = (dinoArray) => {
     for (let i = 0; i < dinoArray.length; i++) {
         domString += '<div class="col-4">'
         domString +=    `<div id="${dinoArray[i].id}" class="card" style="background-color: #f7f7f7;">`
-        domString +=        `<img src="${dinoArray[i].imageUrl}" class="card-img-top" alt="${dinoArray[i].name}">`
+        domString +=        `<img class="card-img-top dino-photo" src="${dinoArray[i].imageUrl}" alt="${dinoArray[i].name}">`
         domString +=        `<div class="card-body">`
         domString +=            `<h5 class="card-title">${dinoArray[i].name}</h5>`
-        domString +=            `<p class="card-text">Health: ${dinoArray[i].health}.</p>`
+        domString +=            `<p class="card-text">Health: ${dinoArray[i].health}</p>`
         domString +=            `<button class="btn btn-outline-dark single-dino"><i class="fas fa-eye"></i></button>`
         domString +=        `</div>`
         domString +=    `</div>`
@@ -86,6 +103,7 @@ const printDinos = (dinoArray) => {
     }
     printToDom('kennel', domString);
     singleDinoAddEvents()
+    petEvents();
 }
 
 const newDino = (e) => {

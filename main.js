@@ -38,7 +38,6 @@ const viewSingleDino = (e) => {
     const dinoId = e.target.closest('.card').id
     const selectedDino = dinos.find((currentDino) => dinoId === currentDino.id)
     let domString = '';
-    domString += `<button id="close-single-view" class="btn btn-outline-dark single-dino"><i class="fas fa-times"></i></button>`
     domString += `<div class="container">`
     domString +=     `<div class="row">`
     domString +=         `<div class="col-6">`
@@ -50,6 +49,10 @@ const viewSingleDino = (e) => {
     domString +=             `<h4>Age: ${selectedDino.age}</h4>`
     domString +=             `<h5>Health: ${selectedDino.health}</h5>`
     domString +=             `<h6>Owner: ${selectedDino.owner}</h6>`
+    domString +=            `<div class="progress">`
+    domString +=            `<div class="progress-bar bg-danger" role="progressbar" style="width: ${selectedDino.health}%" aria-valuenow="${selectedDino.health}" aria-valuemin="0" aria-valuemax="100"></div>`
+    domString +=            `</div>`
+    domString +=            `<button id="close-single-view" class="btn btn-outline-dark single-dino"><i class="fas fa-times"></i></button>`
     domString +=         `</div>`
     domString +=     `</div>`
     domString += `</div>`

@@ -80,8 +80,11 @@ const petEvents = () => {
 const dinoHealth = (e) => {
     const dinoId = e.target.closest('.card').id;
     const dinoPosition = dinos.findIndex((dino) => dino.id === dinoId);
-    dinos[dinoPosition].health += 1;
-    printDinos(dinos);
+    
+    if (dinos[dinoPosition].health < 100) {
+        dinos[dinoPosition].health += 1;
+        printDinos(dinos);
+    };
 }
 
 const printDinos = (dinoArray) => {

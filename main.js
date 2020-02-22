@@ -77,6 +77,23 @@ const petEvents = () => {
     }
 };
 
+const deleteDinoEvent = (e) => {
+    const dinoId = e.target.closest('.card').id;
+    const dinoPosition = dinos.findIndex((dino) => dino.id === dinoId);
+
+    dinos.splice(dinoPosition, 1);
+    printDinos(dinos);
+}
+
+const deleteEvents = () => {
+    const deleteDinoButtons = document.getElementsByClassName('delete-dino');
+    
+    for (i = 0; i < deleteDinoButtons.length; i++) {
+        deleteDinoButtons[i].addEventListener('click', deleteDinoEvent);
+    }
+    
+};
+
 const dinoHealth = (e) => {
     const dinoId = e.target.closest('.card').id;
     const dinoPosition = dinos.findIndex((dino) => dino.id === dinoId);
@@ -85,6 +102,23 @@ const dinoHealth = (e) => {
         dinos[dinoPosition].health += 1;
         printDinos(dinos);
     };
+};
+
+const feedMe = (e) => {
+    const dinoId = e.target.closest('.card').id;
+    const dinoPosition = dinos.findIndex((dino) => dino.id === dinoId);
+    
+    if (dinos[dinoPosition].health < 100) {
+        dinos[dinoPosition].health += 10;
+        printDinos(dinos);
+    };
+}
+
+const feedEvents = () => {
+    const feedDinoButtons = document.getElementsByClassName('feed-dino');
+    for (i = 0; i < feedDinoButtons.length; i++) {
+        feedDinoButtons[i].addEventListener('click', feedMe);
+    }
 }
 
 const printDinos = (dinoArray) => {
@@ -97,12 +131,16 @@ const printDinos = (dinoArray) => {
         domString +=            `<h5 class="card-title">${dinoArray[i].name}</h5>`
         domString +=            `<p class="card-text">Health: ${dinoArray[i].health}</p>`
         domString +=            `<button class="btn btn-outline-dark single-dino"><i class="fas fa-eye"></i></button>`
+        domString +=            `<button class="btn btn-outline-danger delete-dino"><i class="fas fa-trash"></i></button>`
+        domString +=            `<button class="btn btn-outline-success feed-dino"><i class="fas fa-hotdog"></i></button>`
         domString +=        `</div>`
         domString +=    `</div>`
         domString +='</div>'
     }
     printToDom('kennel', domString);
     singleDinoAddEvents()
+    deleteEvents();
+    feedEvents();
     petEvents();
 }
 
